@@ -8,7 +8,7 @@
 #include "NZD.h"
 
 using namespace std;
-using namespace std::chrono;
+using namespace chrono;
 
 int main()
 {
@@ -18,6 +18,7 @@ int main()
     cout << "Da li je uneti broj prost      |1|" << endl;
     cout << "Svi prosti brojevi do n        |2|" << endl;
     cin >> opcija;
+    int brojProstih = 0;
     if (opcija == 1)
     {
 
@@ -49,7 +50,7 @@ int main()
         cout << "Unesite broj N: ";
         cin >> n;
         int brojtredova;
-        cout << "Broj thredova koji ce program da koristi (stavi 4 ako nisi siguran o cemu pricam): ";
+        cout << "Broj thredova koji ce program da koristi: ";
         cin >> brojtredova;
         if (n < 10000000)
         {
@@ -69,11 +70,13 @@ int main()
                     if (prost[i])
                     {
                         cout << i;
+                        brojProstih++;
                     }
                 }
                 auto stop = high_resolution_clock::now();
                 auto trajanje = duration_cast<milliseconds>(stop - start);
                 cout << "Za izvrsavanje programa potrebno je bilo: " << trajanje.count() << " milisekundi" << endl;
+                cout << "Broj prostih brojeva:" << brojProstih << endl;
             }
             else if (opcija4 == 2)
             {
@@ -84,6 +87,7 @@ int main()
                     if (prost[i])
                     {
                         outputFile << i << endl;
+                        brojProstih++;
                     }
                 }
                 outputFile.close();
@@ -91,6 +95,7 @@ int main()
                 auto stop = high_resolution_clock::now();
                 auto trajanje = duration_cast<milliseconds>(stop - start);
                 cout << "Za izvrsavanje programa potrebno je bilo: " << trajanje.count() << " milisekundi" << endl;
+                cout << "Broj prostih brojeva:" << brojProstih << endl;
             }
         }
         else
@@ -120,11 +125,13 @@ int main()
                         if (prost[i])
                         {
                             cout << i;
+                            brojProstih++;
                         }
                     }
                     auto stop = high_resolution_clock::now();
                     auto trajanje = duration_cast<milliseconds>(stop - start);
                     cout << "Za izvrsavanje programa potrebno je bilo: " << trajanje.count() << " milisekundi" << endl;
+                    cout << "Broj prostih brojeva:" << brojProstih << endl;
                 }
                 else if (opcija2 == 2)
                 {
@@ -135,6 +142,7 @@ int main()
                         if (prost[i])
                         {
                             outputFile << i << endl;
+                            brojProstih++;
                         }
                     }
                     outputFile.close();
@@ -142,6 +150,7 @@ int main()
                     auto stop = high_resolution_clock::now();
                     auto trajanje = duration_cast<milliseconds>(stop - start);
                     cout << "Za izvrsavanje programa potrebno je bilo: " << trajanje.count() << " milisekundi" << endl;
+                    cout << "Broj prostih brojeva:" << brojProstih << endl;
                 }
             }
         }
