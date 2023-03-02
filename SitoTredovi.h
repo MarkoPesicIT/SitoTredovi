@@ -32,13 +32,18 @@ private:
 
     void sito(int pocetak, int kraj, vector<bool>& prost)
     {
-        for (int i = pocetak; i <= kraj; i++)
+        for (int i = 2; i * i <= kraj; i++)
         {
             if (prost[i])
             {
-                for (int j = i * i; j <= prost.size() - 1; j += i)
+                int Pocetak = ((pocetak + i - 1) / i) * i;
+                for (int j = Pocetak; j <= kraj; j += i)
                 {
                     prost[j] = false;
+                }
+                if (Pocetak == i)
+                {
+                    prost[i] = true;
                 }
             }
         }
