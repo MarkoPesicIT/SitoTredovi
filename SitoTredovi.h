@@ -1,7 +1,8 @@
 #pragma once 
 #include <vector>  
-#include <cmath>   
-#include <thread>  
+#include <cmath>
+#include <thread>
+#include <iostream>
 
 using namespace std;
 
@@ -9,43 +10,34 @@ class SitoTredovi
 {
 public:
 
-    vector<bool> eratostenovoSito(long long int n, int brojTredova)
+    vector<bool> eratostenovoSito(int n, int brojTredova)
     {
         vector<bool> prost(n + 1, true);
         prost[0] = prost[1] = false;
-        int velicinaGrupe = sqrt(n) / brojTredova;
-        vector<thread> tredovi;
-        for (int i = 0; i < brojTredova; i++)
-        {
-            int pocetak = i * velicinaGrupe + 2;
-            int kraj = (i == brojTredova - 1) ? sqrt(n) + 1 : (i + 1) * velicinaGrupe + 1;
-            tredovi.emplace_back(&SitoTredovi::sito, this, pocetak, kraj, ref(prost));
-        }
-        for (auto& t : tredovi)
-        {
-            t.join();
-        }
-        return prost;
-    }
 
-private:
+        vector<thread> threads(brojTredova);
 
-    void sito(int pocetak, int kraj, vector<bool>& prost)
-    {
-        for (int i = 2; i * i <= kraj; i++)
+        for (int t = 0; t < brojTredova; t++) 
         {
-            if (prost[i])
+            threads[t] = thread([&, t]() 
             {
-                int Pocetak = ((pocetak + i - 1) / i) * i;
-                for (int j = Pocetak; j <= kraj; j += i)
+                for (int i = 2 + t; i <= sqrt(n); i += brojTredova) 
                 {
-                    prost[j] = false;
+                    if (prost[i]) 
+                    {
+                        for (int j = i * i; j <= n; j += i) 
+                        {
+                            prost[j] = false;
+                        }
+                    }
                 }
-                if (Pocetak == i)
-                {
-                    prost[i] = true;
-                }
-            }
+            });
         }
+
+        for (int t = 0; t < brojTredova; t++) {
+            threads[t].join();
+        }
+
+        return prost;
     }
 };
