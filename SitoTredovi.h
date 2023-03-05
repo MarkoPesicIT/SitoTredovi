@@ -10,7 +10,7 @@ class SitoTredovi
 {
 public:
 
-    vector<bool> eratostenovoSito(int n, int brojTredova)
+    vector<bool> eratostenovoSito(unsigned long long int n, int brojTredova)
     {
         vector<bool> prost(n + 1, true);
         prost[0] = prost[1] = false;
@@ -34,7 +34,8 @@ public:
             });
         }
 
-        for (int t = 0; t < brojTredova; t++) {
+        for (int t = 0; t < brojTredova; t++) 
+        {
             threads[t].join();
         }
 
